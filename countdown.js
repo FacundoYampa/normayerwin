@@ -37,3 +37,21 @@
   update();
   const timer = setInterval(update, 1000);
 })();
+
+  document.addEventListener('click', () => {
+    const music = document.getElementById('bgMusic');
+    
+    music.muted = false;
+    music.volume = 0; // empieza sin volumen
+
+    music.play().catch(() => {});
+
+    // Fade-in progresivo hasta 0.1
+    const fadeInterval = setInterval(() => {
+      if (music.volume < 0.1) {
+        music.volume = Math.min(music.volume + 0.005, 0.1);
+      } else {
+        clearInterval(fadeInterval);
+      }
+    }, 100); // cada 100ms sube un poquito (0.005)
+  }, { once: true });
